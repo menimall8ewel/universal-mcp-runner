@@ -1,8 +1,6 @@
 import { Think } from "@cloudflare/think";
 import { getAgentByName, routeAgentRequest } from "agents";
 
-const MODEL = "@cf/deepseek-ai/deepseek-v4-flash-0731";
-
 const SYSTEM_PROMPT = `You are a durable universal task runner.
 Use the connected MCP tools whenever a task requires external information or an external action.
 Never claim that an external action succeeded unless the tool result confirms it.
@@ -42,7 +40,7 @@ export class UniversalMcpAgent extends Think {
   waitForMcpConnections = true;
 
   getModel() {
-    return MODEL;
+    return this.env.AGENT_MODEL;
   }
 
   getSystemPrompt() {
