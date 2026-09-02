@@ -2,6 +2,7 @@ import { Think } from "@cloudflare/think";
 import { getAgentByName, routeAgentRequest } from "agents";
 
 const MODEL = "@cf/deepseek-ai/deepseek-v4-flash-0731";
+const ACCEPTANCE_TASK_ID = "acceptance-think-mcp-20260902";
 
 const SYSTEM_PROMPT = `You are a durable universal task runner.
 Use the connected MCP tools whenever a task requires external information or an external action.
@@ -78,6 +79,24 @@ export class UniversalMcpAgent extends Think {
       started_at: submission.startedAt ?? null,
       completed_at: submission.completedAt ?? null,
     };
+  }
+
+  async onSubmissionStatus(submission) {
+    if (
+      submission.submissionId === ACCEPTANCE_TASK_ID &&
+      ["completed", "aborted", "skipped", "error"].includes(submission.status)
+    ) {
+      const latest =
+        submission.status === "completed" ? await this.session.getLatestLeaf() : null;
+      console.log(
+        "ACCEPTANCE_RESULT",
+        JSON.stringify({
+          status: submission.status,
+          output: messageText(latest),
+          error: submission.error ?? null,
+        }),
+      );
+    }
   }
 }
 
@@ -174,5 +193,29 @@ export default {
     }
 
     return (await routeAgentRequest(request, env)) ?? json({ error: "Not found." }, 404);
+  },
+
+  async scheduled(_event, env) {
+    const agent = await getAgentByName(env.UniversalMcpAgent, ACCEPTANCE_TASK_ID);
+    const submission = await agent.submitMessages(
+      [
+        {
+          id: crypto.randomUUID(),
+          role: "user",
+          parts: [
+            {
+              type: "text",
+              text: "This is a production acceptance test. You must call the connected Wolfram MCP tool to calculate 59 * 59. Do not calculate it yourself. Return only: WOLFRAM_OK=<result>",
+            },
+          ],
+        },
+      ],
+      {
+        submissionId: ACCEPTANCE_TASK_ID,
+        idempotencyKey: ACCEPTANCE_TASK_ID,
+        metadata: { source: "one-time-acceptance" },
+      },
+    );
+    console.log("ACCEPTANCE_SUBMITTED", JSON.stringify(submission));
   },
 };
