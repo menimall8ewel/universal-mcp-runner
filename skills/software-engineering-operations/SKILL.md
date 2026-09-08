@@ -1,3 +1,8 @@
+---
+name: software-engineering-operations
+description: 软件工程运维治理与官方资料核验；用于系统、云平台、API、MCP、数据库及第三方服务的维护、排障、升级、配置、部署和架构评估。
+---
+
 # Software Engineering Operations Agent
 
 ## Purpose
@@ -24,6 +29,56 @@
 9. 再次依据官方资料核验结果。
 10. 进行上线前可靠性检查。
 11. 记录关键结果。
+
+## Official Documentation Verification
+
+### Mandatory Rule
+Before starting **any task or operation**, regardless of product, platform, tool, API, framework, MCP server, codebase, or service involved:
+
+1. Identify all relevant technologies, dependencies, and operational targets.
+2. Load and review the latest available official documentation, specifications, manuals, or authoritative references.
+3. Verify capabilities, limitations, configuration methods, permissions, and recommended practices against official materials.
+4. Do not rely on outdated memory, assumptions, or unofficial information when official documentation is available.
+
+### During Work
+All decisions involving:
+
+- architecture design
+- configuration
+- integration
+- deployment
+- troubleshooting
+- maintenance
+- code changes
+- tool usage
+
+must be based on verified official documentation.
+
+If existing design assumptions conflict with the latest official documentation:
+
+**Follow the latest official documentation.**
+
+### After Work
+After completing every task:
+
+1. Re-check the final state against the latest official documentation.
+2. Verify that implementation, configuration, permissions, APIs, and workflows remain consistent with official recommendations.
+3. Identify and correct any deviation before reporting completion.
+
+### Universal Scope
+This rule applies universally to all future tools, platforms, services, and technologies.
+
+No specific vendor list is required.
+
+The operating workflow is:
+
+Official Documentation Verification
+→ Analysis
+→ Plan
+→ Execute
+→ Official Documentation Verification Again
+→ Test/Validate
+→ Complete
 
 ## Engineering Principles
 
@@ -124,6 +179,22 @@
 
 任何新增功能或修改必须评估对整体系统的影响，避免局部优化破坏整体架构。
 
+### Architecture Reference
+
+#### Architecture Review
+
+Before changing architecture:
+
+- Understand current components and dependencies.
+- Identify ownership boundaries.
+- Evaluate operational complexity.
+- Prefer mature existing components.
+- Avoid unnecessary redesign.
+
+#### Extension Principles
+
+New capabilities should be modular, replaceable and independently testable.
+
 ## Change Control
 
 修改前：
@@ -135,6 +206,25 @@
 
 不要默认创建大量备份文件。
 根据风险决定是否需要恢复方案、版本记录或人工确认。
+
+### Change Management Reference
+
+#### Change Rules
+
+Before change:
+- Define objective.
+- Confirm current state.
+- Estimate risk.
+
+During change:
+- Keep scope limited.
+- Record important modifications.
+- Monitor results.
+
+After change:
+- Verify functionality.
+- Confirm no regression.
+- Document final state.
 
 ## Code Review and Quality Control
 
@@ -168,6 +258,22 @@ Agent必须：
 - 扩大权限。
 - 破坏已有功能。
 
+### Security Reference
+
+#### Security Principles
+
+- Use least privilege.
+- Avoid exposing secrets.
+- Validate external inputs.
+- Keep public interfaces protected by appropriate controls.
+- Review permission changes before execution.
+
+#### Forbidden
+
+- Hardcode credentials.
+- Increase permissions without justification.
+- Disable security controls without approval.
+
 ## Debugging
 
 遇到故障：
@@ -175,6 +281,23 @@ Agent必须：
 信息收集 → 原因分析 → 官方资料核验 → 制定方案 → 修复 → 多场景测试 → 复核。
 
 禁止盲目修改和随机尝试。
+
+### Debugging Reference
+
+#### Process
+
+1. Collect logs, errors, versions and current state.
+2. Reproduce or isolate the failure.
+3. Check official documentation and known issues.
+4. Identify root cause before changing code.
+5. Apply the smallest safe fix.
+6. Verify recovery with tests.
+
+#### Rules
+
+- Do not randomly modify multiple components.
+- Do not hide errors with temporary patches.
+- Preserve rollback ability for risky changes.
 
 ## Reliability Testing
 
@@ -189,6 +312,22 @@ Agent必须：
 - 高复杂任务流程测试。
 
 目标：最大程度降低故障概率，提高异常情况下的恢复能力。
+
+### Testing Reference
+
+#### Verification Order
+
+1. Basic health check.
+2. Core function test.
+3. Integration test.
+4. Regression check.
+5. Failure scenario test when applicable.
+
+#### Requirements
+
+- Tests must prove the requested change works.
+- Existing working features must remain available.
+- Record important test results.
 
 ## Production Reliability Checklist
 
