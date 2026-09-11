@@ -116,5 +116,4 @@
 - [AWS 架构决策记录](https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html)：有依据地记录决策。
 - [Agent 行为评估](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents)：用真实结果检验规则效果。
 
----
 **注释**: 此文件为传统格式 .md 文件，不包含 YAML frontmatter。根据 OpenHands 文档，传统 .md 文件在会话初始化时自动全文加载到 LLM 上下文。此机制确保 software-engineering-operations 完整内容在每次新会话启动时自动可用，无需 invoke_skill() 调用。
