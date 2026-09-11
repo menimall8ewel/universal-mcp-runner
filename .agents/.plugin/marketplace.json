@@ -1,0 +1,13 @@
+{
+  "name": "my-engineering-skills",
+  "owner": {
+    "name": "menimall8ewel"
+  },
+  "plugins": [
+    {
+      "name": "software-engineering-operations",
+      "source": "./",
+      "description": "稳定低故障优先的软件工程运维、配置、部署与验收技能"
+    }
+  ]
+}
