@@ -1,5 +1,5 @@
 # 工程运维 Skill 入口
 
-处理本仓库的代码、架构、配置、审计、维护或部署任务前，读取并应用 `.agents/skills/software-engineering-operations/SKILL.md` 全文；文件已完整加载时无需重复读取。
+处理本仓库的代码、架构、配置、审计、维护或部署任务前，读取并应用 `.agents/skills/software-engineering-operations.md` 全文；文件已完整加载时无需重复读取。
 
 本文件只负责加载，不复制 Skill 正文。不适用于无关闲聊。用户本次任务范围优先；只读审计不授权修改或部署。此入口只覆盖使用本仓库的会话，不代表市场插件在其他仓库也已加载。

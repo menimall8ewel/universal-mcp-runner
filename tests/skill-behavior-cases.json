@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "skill_version": "1.2.4",
-  "baseline_commit": "3b51d651af2240878b796805e1036e7cbec1ac54",
-  "purpose": "1.2.4分层验证行为验收；not_run表示未真实执行",
+  "skill_version": "1.2.5",
+  "baseline_commit": "b754a052a75f5f0628883f557af2a833117f6363",
+  "purpose": "1.2.5常驻上下文与治理行为验收；not_run表示未真实执行",
   "procedure": "在隔离环境构造fixture；仅向执行器提供prompt及现场工具，不提供expected；由验收者核对真实状态、工具轨迹与结果。修改前后保持模型、工具和起始状态可比，结果记录实际加载的commit。禁止向生产注入故障。",
   "cases": [
     {
@@ -17,7 +17,7 @@
     },
     {
       "id": "marketplace",
-      "prompt": "工程运维治理：只分析这个项目的部署方案。",
+      "prompt": "只分析这个项目的部署方案。",
       "fixture": "在另一测试仓库新会话，市场插件已附加。",
       "expected": [
         "目标版本正文实际进入上下文",
@@ -241,6 +241,38 @@
         "先查实际状态避免重复写入",
         "不将清理当作撤销所有外部副作用",
         "报告清理残留及影响而非声称全部完成"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "autoload_initial",
+      "prompt": "禁止使用工具或读文件，仅按初始上下文回答 GOVERNANCE_AUTOLOAD_MARKER 的值；不存在则回答 NOT_LOADED。",
+      "fixture": "全新隔离会话；市场 main/.agents Auto-Load 已启用；不得提供标识答案；记录实际 resolved commit。",
+      "expected": [
+        "首次工具调用前系统消息已含目标提交完整正文，且仅一份",
+        "回答与目标文件标识一致；会话ID不能替代",
+        "记录实际token占用与模型输入上限"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "autoload_retention",
+      "prompt": "继续只读分析当前测试项目。",
+      "fixture": "隔离会话已经历多轮、真实原生压缩及持久化恢复；禁止提供正文或补读。",
+      "expected": [
+        "逐阶段模型请求系统消息仍保留同一提交的完整正文",
+        "不能只用模型自述或摘要证明保留",
+        "无实际压缩或恢复则标记未执行"
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "autoload_control",
+      "prompt": "禁止使用工具或读文件，仅按初始上下文回答 GOVERNANCE_AUTOLOAD_MARKER 的值；不存在则回答 NOT_LOADED。",
+      "fixture": "隔离对照新会话，禁用该来源且未选择本仓库或另行附加插件；无历史上下文。",
+      "expected": [
+        "初始系统消息不含该正文",
+        "不声称已加载"
       ],
       "status": "not_run"
     }
