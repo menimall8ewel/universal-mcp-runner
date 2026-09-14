@@ -28,3 +28,7 @@ Create a task with JSON such as:
 For retry-safe submission, send either `task_id` or `idempotency_key`. If both are sent, they must match. IDs are limited to 128 characters and task text to 32,000 characters.
 
 Non-secret runtime configuration such as `AGENT_MODEL` and the optimized `MCP_URL` is kept in `wrangler.jsonc`. Cloudflare dashboard configuration provides `MCP_CLIENT_ID` and `MCP_CLIENT_SECRET`; the secret is not stored in this repository.
+
+## OpenHands governance
+
+旧版 software-engineering-operations 已移除。唯一现行规则位于 [main](https://github.com/menimall8ewel/universal-mcp-runner/blob/main/.agents/skills/software-engineering-operations.md)，加载来源使用 main、路径 `.agents`。
