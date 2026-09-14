@@ -31,4 +31,4 @@ Non-secret runtime configuration such as `AGENT_MODEL` and the optimized `MCP_UR
 
 ## OpenHands governance
 
-The canonical skill marketplace uses `main` with repository path `.agents`. See [automatic loading and verification](docs/openhands-autoload.md) for version 1.4.1 and runtime acceptance status.
+The canonical skill marketplace uses `main` with repository path `.agents`. See [automatic loading and verification](docs/openhands-autoload.md) for version 1.5.0 and runtime acceptance status.
