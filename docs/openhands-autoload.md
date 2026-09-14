@@ -1,7 +1,7 @@
-# OpenHands 治理规则自动加载与验收（1.2.5）
+# OpenHands 治理规则自动加载与验收（1.4.1）
 
-## 生效配置
-权威分发源：`https://github.com/menimall8ewel/universal-mcp-runner`，分支 `main`，市场仓库路径 `.agents`，个人作用域，Auto-Load 开启并保存，技能保持启用。master 同步本次修复用于消除旧分支误导；后续维护以 main 为准，只注册一个来源，不同时附加两个分支。
+## 目标配置（实际实例设置须核验）
+权威分发源：`https://github.com/menimall8ewel/universal-mcp-runner`，分支 `main`，市场仓库路径 `.agents`，个人作用域，Auto-Load 开启并保存，技能保持启用。本轮仅更新 main；其他分支可能保留历史版本，不作为本轮分发来源，只注册一个来源。
 市场清单：`.agents/.plugin/marketplace.json`；插件清单：`.agents/.plugin/plugin.json`；唯一规则正文：`.agents/skills/software-engineering-operations.md`。
 市场注册可使用任意受支持仓库名，不要求将本仓库改名为 .agents。名为 .agents 的专用用户配置仓库是另一种分发方式。
 规则采用 Legacy .md，无触发条件；成功加载到初始系统提示词后，全文随系统消息参与后续调用。无需用户每次提示加载，不依赖 invoke_skill。打开空白网页不等于服务端已初始化会话；以实际 SystemPromptEvent 为准。已运行会话不会因 Git 更新自动替换旧规则。
@@ -12,7 +12,7 @@
 文件大小不能换算成固定 token 数。用实际模型 tokenizer 或请求 usage 计量完整请求（系统、工具、历史和正文），按服务商实际输入限制留余量；旧的 164612 > 163840 报错仅证明当次请求超限，不能证明系统因 Skill 大而自动跳过。
 
 ## 验收
-当前：仓库格式、规则保留与分发结构静态核验通过；真实 OpenHands 新会话、压缩和恢复测试未执行。不得标为生产验收通过。
+当前（2026-09-14）：正文修订为 1.4.1；已对照仓库 1.2.5 保留原有效规则并合并上传 1.4 的适用增补。章节引用、标记唯一性、Legacy 无触发器格式及分发结构已静态核验。独立 Agent 完成 10 项离线场景处置（只读审计、已结束部署、写超时已成功、合法空数组、预算耗尽、活跃并发、已授权发布、标记不足、密钥诊断、文档小改），未见与对应规则冲突的回答。该检查只验证场景决策输出，不是工具执行测试，不代表 OpenHands 模型行为或真实生产结果。真实 OpenHands 新会话、压缩、恢复及完整请求容量测试本轮未执行；当前工具目录没有 OpenHands 实例操作能力，不得标为生产验收通过。
 1. 记录 OpenHands/SDK 版本、市场配置、实际 resolved commit、规则文件 SHA；确认只有一个正文入口。
 2. 新建目标作用域会话，不在用户消息中给出标识答案，不调用工具或补读文件。检查初始 SystemPromptEvent 的 REPO_CONTEXT 与该提交正文一致且只出现一次。模型回答标识仅作辅助，不能替代全文证据。
 3. 可发送：“禁止使用任何工具或读取文件；仅根据初始上下文回答 GOVERNANCE_AUTOLOAD_MARKER 的值，不存在则回答 NOT_LOADED。”验收者独立从目标提交读取期望值，不将答案发给受测模型。会话 ID 不是标识值。
@@ -20,7 +20,11 @@
 5. 普通工程请求不提 Skill 名，检查只读范围、证据核验及发布条件等代表性行为。关闭加载的隔离对照会话应不含正文。不要向生产注入故障、压力或测试写入。
 6. 记录通过、失败、未执行及其证据。只有来源、启动全文、后续保留、压缩恢复和上下文容量均验证后，才能宣称本实例达到要求。
 
-## 官方依据（2026-09-11 核对）
+## 官方依据
+本轮于 2026-09-14 复核技能概览；下列 SDK、插件与压缩链接保留为历史参考，执行实例验收时仍须按实际版本复核。
+- https://docs.openhands.dev/overview/skills
+
+历史参考（2026-09-11记录）：
 - https://docs.openhands.dev/sdk/guides/skill#skill-injection-behavior
 - https://docs.openhands.dev/enterprise/skills-and-plugins#configure-auto-load
 - https://docs.openhands.dev/sdk/guides/plugins
