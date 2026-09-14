@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "skill_version": "1.2.5",
-  "baseline_commit": "b754a052a75f5f0628883f557af2a833117f6363",
-  "purpose": "1.2.5常驻上下文与治理行为验收；not_run表示未真实执行",
+  "skill_version": "1.4.1",
+  "baseline_commit": "b797b183d1e91ed8ea7a67423876bc6d9dedfce2",
+  "purpose": "1.4.1常驻上下文与治理行为验收；沿用仍适用用例，not_run表示未真实执行",
   "procedure": "在隔离环境构造fixture；仅向执行器提供prompt及现场工具，不提供expected；由验收者核对真实状态、工具轨迹与结果。修改前后保持模型、工具和起始状态可比，结果记录实际加载的commit。禁止向生产注入故障。",
   "cases": [
     {

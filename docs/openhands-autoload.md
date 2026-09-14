@@ -1,7 +1,7 @@
 # OpenHands 治理规则自动加载与验收（1.4.1）
 
 ## 目标配置（实际实例设置须核验）
-权威分发源：`https://github.com/menimall8ewel/universal-mcp-runner`，分支 `main`，市场仓库路径 `.agents`，个人作用域，Auto-Load 开启并保存，技能保持启用。本轮仅更新 main；其他分支可能保留历史版本，不作为本轮分发来源，只注册一个来源。
+权威分发源：`https://github.com/menimall8ewel/universal-mcp-runner`，分支 `main`，市场仓库路径 `.agents`，个人作用域，Auto-Load 开启并保存，技能保持启用。唯一现行分发来源为 main；旧分支的本治理 Skill 副本已清理，请只注册 main/.agents。
 市场清单：`.agents/.plugin/marketplace.json`；插件清单：`.agents/.plugin/plugin.json`；唯一规则正文：`.agents/skills/software-engineering-operations.md`。
 市场注册可使用任意受支持仓库名，不要求将本仓库改名为 .agents。名为 .agents 的专用用户配置仓库是另一种分发方式。
 规则采用 Legacy .md，无触发条件；成功加载到初始系统提示词后，全文随系统消息参与后续调用。无需用户每次提示加载，不依赖 invoke_skill。打开空白网页不等于服务端已初始化会话；以实际 SystemPromptEvent 为准。已运行会话不会因 Git 更新自动替换旧规则。
